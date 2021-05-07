@@ -1,0 +1,26 @@
+<h1>register</h1>
+
+<form method="POST", action="">
+    {% csrf_token %}
+    {{ form.username.label }}
+    {{ form.username }}
+
+    {{ form.email.label }}
+    {{ form.email }}
+
+    {{ form.password1.label }}
+    {{ form.password1 }}
+
+    {{ form.password2.label }}
+    {{ form.password2 }}
+    
+    <!-- {% for field in form %}
+        <p>{{ field.label }}
+        {{ field }}</p>
+    {% endfor %} -->
+    <input type="submit" value="Create User">
+</form>
+
+{{ form.errors }}
+<h5>Already having an Account?</h5>
+<a href=" {% url 'login' %} ">Click Here</a>
