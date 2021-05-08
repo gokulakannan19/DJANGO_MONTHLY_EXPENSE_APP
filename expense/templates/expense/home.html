@@ -5,7 +5,12 @@
 <a href=" {% url 'add-expense' %} ">Add Expense</a>
 
 {% for expense in expenses %}
-<h4>{{ expense }}</h4>
+
+<h4>{{ expense.title }}</h4>
+<h4>{{ expense.description }}</h4>
+<h4>{{ expense.amount }}</h4>
+
+<h1>{{ total }}</h1>
 <a href=" {% url 'update-expense' expense.id %} ">Update</a>
 <a href=" {% url 'delete-expense' expense.id %} ">Delete</a>
 
