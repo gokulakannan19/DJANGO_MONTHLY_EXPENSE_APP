@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Expense
 from .forms import ExpenseForm, CreateUserForm
 from .decorators import unauthenticated_user, allowed_users
+from .filters import ExpenseFilter
 
 
 @unauthenticated_user
@@ -71,12 +72,16 @@ def home(request):
 
     expenses = Expense.objects.filter(user=user)
 
+    my_filter = ExpenseFilter(request.GET, queryset=expenses)
+    expenses = my_filter.qs
+
     total = 0
     for expense in expenses:
         total = total + int(expense.amount)
     print(total)
 
     context = {
+        'my_filter': my_filter,
         'expenses': expenses,
         'total': total,
     }

@@ -1,3 +1,7 @@
+{% extends 'expense/base.html' %}
+
+{% block content %}
+
 <h1>register</h1>
 
 <form method="POST", action="">
@@ -24,3 +28,5 @@
 {{ form.errors }}
 <h5>Already having an Account?</h5>
 <a href=" {% url 'login' %} ">Click Here</a>
+
+{% endblock %}
