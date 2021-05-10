@@ -1,84 +1,67 @@
-{% extends 'expense/base.html' %}
-
-{% block content %}
-    
-
-
+{% extends 'expense/base.html' %} {% block content %}
 
 <div class="header">
-  
-    <h2>Hello {{ request.user }}</h2>
-    <form method="POST" action="">
-      {% csrf_token %}
-      <input type="submit" class="btn btn-warning" value=Logout>
-    </form>
-  </div>
-
-
-<div class="search-form">
-  <form method="GET" action="">
+  <h2>Hello {{ request.user }}</h2>
+  <form method="POST" action="">
     {% csrf_token %}
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col"><label>Title</label>
-            {{ my_filter.form.title}}</th>
-          <th scope="col"><label>Start Date</label>
-            {{ my_filter.form.start_date}}</th>
-          <th scope="col"><label>End Date</label>
-            {{ my_filter.form.end_date}}</th>
-          <th scope="col"><input class="btn btn-info" type="submit" value="Search"></th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-    
-    
+    <input type="submit" class="btn btn-warning" value="Logout" />
   </form>
 </div>
 
+<table class="table">
+  <thead>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <tr>
+        <th scope="col">Start Date</th>
+        <th>{{my_filter.form.start_date}}</th>
+        <th scope="col">End Date</th>
+        <th>{{my_filter.form.end_date}}</th>
+        <th scope="col">
+          <input class="btn btn-warning" type="submit" value="Apply Filter" />
+        </th>
+      </tr>
+    </form>
+  </thead>
+</table>
 
 <div class="add-expense">
   <a class="btn btn-success" href=" {% url 'add-expense' %} ">Add Expense</a>
   <h4>Total: {{ total }}</h4>
 </div>
 
+<table class="table">
+  <thead>
+    <tr class="table-info">
+      <th scope="col">Date</th>
+      <th scope="col">Title</th>
+      <th scope="col">Amount</th>
+      <th scope="col">View/Update</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for expense in expenses %}
 
-    
+    <tr class="table table-light table-striped">
+      <td>{{ expense.date }}</td>
+      <td>{{ expense.title }}</td>
+      <td>{{ expense.amount }}</td>
+      <td>
+        <a
+          class="btn btn-warning"
+          href=" {% url 'update-expense' expense.id %} "
+          >Update</a
+        >
+      </td>
+      <td>
+        <a class="btn btn-danger" href=" {% url 'delete-expense' expense.id %} "
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-    <table class="table">
-      <thead>
-        <tr class="table-info">
-          <th scope="col">Date</th>
-          <th scope="col">Title</th>
-          <th scope="col">Amount</th>
-          <th scope="col">View/Update</th>
-          <th scope="col">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-        {% for expense in expenses %}
-          
-        
-          
-        <tr class="table table-light table-striped">
-          
-          <td>{{ expense.date }}</td>
-          <td>{{ expense.title }}</td>
-          <td>{{ expense.amount }}</td>
-          <td><a class="btn btn-warning" href=" {% url 'update-expense' expense.id %} ">Update</a></td>
-          <td><a class="btn btn-danger" href=" {% url 'delete-expense' expense.id %} ">Delete</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-
-{% endblock content %}  
-    
-
-
-
-    
+{% endblock content %}

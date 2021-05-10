@@ -2,12 +2,19 @@
 
 {% block content %}
 
-<a>Form</a>
+<div class="header-bar">
+    <a href="{% url 'home' %}">&#8592; Go Back</a>
+</div>
 
+
+<div class="card-body">
 <form method="POST" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
+    <h6>User</h6><p>{{form.user}}</p>
+    <h6>Title</h6>{{form.title}}
+    <h6>Description</h6>{{form.description}}
+    <h6>Amount</h6>{{form.amount}}
+    <br><br>
+    <input class="btn btn-warning" type="submit" value="Submit">
 </form>
-
+</div>
 {% endblock %}
