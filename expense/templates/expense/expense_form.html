@@ -6,15 +6,36 @@
     <a href="{% url 'home' %}">&#8592; Go Back</a>
 </div>
 
-
-<div class="card-body">
-<form method="POST" action="">
-    <h6>User</h6><p>{{form.user}}</p>
-    <h6>Title</h6>{{form.title}}
-    <h6>Description</h6>{{form.description}}
-    <h6>Amount</h6>{{form.amount}}
-    <br><br>
-    <input class="btn btn-warning" type="submit" value="Submit">
-</form>
-</div>
+<div class="expense-form">
+    <form action="" method="POST">
+    {% csrf_token %}
+      <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row">User</th>
+            <td>{{ form.user }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Title</th>
+            <td>{{ form.title }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Description</th>
+            <td>{{ form.description }}</td>
+          </tr>
+          <tr>
+            <tr>
+            <th scope="row">Amount</th>
+            <td>{{ form.amount }}</td>
+          </tr>
+          <tr>    
+            <th scope="row"</th>
+            <td><input class="btn btn-warning" type="submit" value="Submit"></td>
+          </tr>
+        </tbody>
+      </table>
+  
+      
+    </form>
+  </div>
 {% endblock %}
