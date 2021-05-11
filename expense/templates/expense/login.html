@@ -2,18 +2,44 @@
 
 {% block content %}
 
-<h1>login</h1>
 
-<form method="POST" action="">
-    {% csrf_token %}
-    <input type="text" placeholder="username" name="username">
-    <input type="password" placeholder="password" name="password">
-    <input type="submit" value="login">
-</form>
+<div class="Registration-form">
+    <form action="" method="POST">
+      <h3 align="center">Login</h3>
+      <hr />
+      {% csrf_token %}
+      <table class="table">
+        <tbody>
+          <tr>
+            <th scope="row">Username</th>
+            <td><input type="text" placeholder="username" name="username"></td>
+          </tr>
+          <tr>
+            <th scope="row">Password</th>
+            <td><input type="password" placeholder="password" name="password"></td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <a class="btn btn-danger" href=" {% url 'register' %} "
+                >Click To Register</a
+              >
+            </th>
+            <td>
+              <input
+                class="btn btn-warning"
+                type="submit"
+                value="Login"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
 
-{% for message in messages %}
-    <p>{{ message }}</p>
+  {% for message in messages %}
+  <p>{{ message }}</p>
 {% endfor %}
-<p>Don't have an account<a href=" {% url 'register' %} ">Sign In</a></p>
+
 
 {% endblock %}

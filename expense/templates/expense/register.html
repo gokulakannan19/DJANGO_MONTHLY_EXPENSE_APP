@@ -1,32 +1,47 @@
-{% extends 'expense/base.html' %}
+{% extends 'expense/base.html' %} {% block content %}
 
-{% block content %}
-
-<h1>register</h1>
-
-<form method="POST", action="">
+<div class="Registration-form">
+  <form action="" method="POST">
+    <h3 align="center">Register</h3>
+    <hr />
     {% csrf_token %}
-    {{ form.username.label }}
-    {{ form.username }}
-
-    {{ form.email.label }}
-    {{ form.email }}
-
-    {{ form.password1.label }}
-    {{ form.password1 }}
-
-    {{ form.password2.label }}
-    {{ form.password2 }}
-    
-    <!-- {% for field in form %}
-        <p>{{ field.label }}
-        {{ field }}</p>
-    {% endfor %} -->
-    <input type="submit" value="Create User">
-</form>
-
-{{ form.errors }}
-<h5>Already having an Account?</h5>
-<a href=" {% url 'login' %} ">Click Here</a>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row">{{ form.username.label }}</th>
+          <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+          <th scope="row">{{ form.email.label }}</th>
+          <td>{{ form.email }}</td>
+        </tr>
+        <tr>
+          <th scope="row">{{ form.password1.label }}</th>
+          <td>{{ form.password1 }}</td>
+        </tr>
+        <tr>
+          <th scope="row">{{ form.password2.label }}</th>
+          <td>{{ form.password2 }}</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <a class="btn btn-danger" href=" {% url 'login' %} "
+              >Already having account</a
+            >
+          </th>
+          <td>
+            <input
+              class="btn btn-warning"
+              type="submit"
+              value="Create New User"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  {{ form.errors }}
+  <div class="already-login"></div>
+</div>
 
 {% endblock %}

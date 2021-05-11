@@ -2,10 +2,7 @@
 
 <div class="header">
   <h2>Hello {{ request.user }}</h2>
-  <form method="POST" action="">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-warning" value="Logout" />
-  </form>
+  <a class="btn btn-warning" href="{% url 'logout' %}">logout</a>
 </div>
 
 <div class="filter-table">
