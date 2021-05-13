@@ -6,7 +6,7 @@
 </div>
 
 <div class="filter-table">
-  <form action="" method="POST">
+  <form action="" method="GET">
   {% csrf_token %}
     <table class="table">
       <tbody>
@@ -33,8 +33,9 @@
   </form>
 </div>
 
+
 <div class="add-expense">
-  <a class="btn btn-warning" href=" {% url 'add-expense' %} ">Add Expense</a>
+  <a class="btn btn-warning" href=" {% url 'add-expense' user.id %} ">Add Expense</a>
   <h4>Total: {{ total }}</h4>
 </div>
 

@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.forms import formset_factory, inlineformset_factory
 
 from .models import Expense
 from .forms import ExpenseForm, CreateUserForm
@@ -74,6 +76,10 @@ def home(request):
 
     my_filter = ExpenseFilter(request.GET, queryset=expenses)
     expenses = my_filter.qs
+    if expenses:
+        print("success")
+    else:
+        print("fail")
 
     total = 0
     for expense in expenses:
@@ -91,46 +97,61 @@ def home(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'customer'])
-def add_expense(request):
+def add_expense(request, pk):
 
-    form = ExpenseForm()
+    user = User.objects.get(id=pk)
+    print(user)
+
+    ExpenseFormSet = inlineformset_factory(
+        User, Expense, fields=('title', 'description', 'amount'), extra=1)
+    user = User.objects.get(id=pk)
+    formset = ExpenseFormSet(queryset=Expense.objects.none(), instance=user)
+    # form = ExpenseForm(initial={'user': user})
 
     if request.method == "POST":
-        form = ExpenseForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formset = ExpenseFormSet(request.POST, instance=user)
+        if formset.is_valid():
+            formset.save()
+        else:
+            print("Not saved")
+            # Expense.user = User.objects.get(id=pk)
+            # form.save()
         return redirect('/')
 
     context = {
-        'form': form
+        'form': formset
     }
 
     return render(request, 'expense/expense_form.html', context)
 
 
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'customer'])
+@ login_required(login_url='login')
+@ allowed_users(allowed_roles=['admin', 'customer'])
 def update_expense(request, pk):
 
     expense = Expense.objects.get(id=pk)
-
+    user = expense.user
+    print(user)
     form = ExpenseForm(instance=expense)
 
     if request.method == "POST":
         form = ExpenseForm(request.POST, instance=expense)
+
         if form.is_valid():
-            form.save()
-        return redirect('/')
+            u = form.save(commit=False)
+            u.user = user
+            u.save()
+            return redirect('/')
 
     context = {
         'form': form
     }
 
-    return render(request, 'expense/expense_form.html', context)
+    return render(request, 'expense/update_form.html', context)
 
 
-@login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'customer'])
+@ login_required(login_url='login')
+@ allowed_users(allowed_roles=['admin', 'customer'])
 def delete_expense(request, pk):
 
     expense = Expense.objects.get(id=pk)

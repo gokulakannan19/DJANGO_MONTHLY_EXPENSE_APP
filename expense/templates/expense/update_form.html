@@ -9,31 +9,30 @@
 <div class="expense-form">
     <form action="" method="POST">
     {% csrf_token %}
-
-    {{ form.management_form }}
       <table class="table">
         <tbody>
-{% for field in form %}
+          
           <tr>
-            <th scope="row">{{ field.title.label }}</th>
-            <td>{{ field.title }}</td>
+            <th scope="row">{{ form.title.label }}</th>
+            <td>{{ form.title }}</td>
           </tr>
           <tr>
-            <th scope="row">{{ field.description.label }}</th>
-            <td>{{ field.description }}</td>
+            <th scope="row">{{ form.description.label }}</th>
+            <td>{{ form.description }}</td>
           </tr>
           <tr>
             <tr>
-            <th scope="row">{{ field.amount.label }}</th>
-            <td>{{ field.amount }}</td>
+            <th scope="row">{{ form.amount.label }}</th>
+            <td>{{ form.amount }}</td>
           </tr>
-          {% endfor %}
+          
           <tr>    
             <th scope="row"</th>
             <td><input class="btn btn-warning" type="submit" value="Submit"></td>
           </tr>
         </tbody>
       </table>
-  </form>
+
+    </form>
   </div>
 {% endblock %}
